@@ -1,0 +1,23 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: 3791f336642b43c859459e063130cb5a # 앱키 -> REST API 키
+            client-secret: TmggycaEFNBFmPNbkerH4yLzyOqldVCB # 카카오 로그인 -> 보안 -> Client Secret 코드
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+            client-authentication-method: client_secret_post # POST 사용 불가 (setRequestEntityConverter를 사용하여 POST를 지원하는 인스턴스를 제공해야한다.)
+            scope: # kakao 개인 정보 동의 항목 설정의 ID 값
+              - account_email
+              - profile_nickname
+              - profile_image
+            client-name: kakao
+
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize # "인가 코드 받기" 항목
+            token-uri: https://kauth.kakao.com/oauth/token # "토큰 받기" 항목
+            user-info-uri: https://kapi.kakao.com/v2/user/me # "사용자 정보 가져오기" 항목
+            user-name-attribute: id # 식별자 . 카카오의 경우 "id" 사용

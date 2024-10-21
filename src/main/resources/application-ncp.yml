@@ -1,0 +1,15 @@
+ncp:
+  storage:
+    endpoint: https://kr.object.ncloudstorage.com
+    region: kr-standard
+    accessKey: 7157B7CF7E86326D66CC
+    secretKey: 7E8353D4D6E3149C5116B37425FA2C78D9E2C607
+    bucketname: rnts
+
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 10MB
+      max-file-size: 10MB
+

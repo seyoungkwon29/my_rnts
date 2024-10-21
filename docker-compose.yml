@@ -1,0 +1,56 @@
+#local docker 테스트용
+version: '3'
+
+services:
+  spring-app:
+    container_name: rnts-api
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8443:8443"
+    depends_on:
+      - mysql-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/${DB_DATABASE}
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      #
+      - DATASOURCE_URL=${DS_URL}
+      - DATASOURCE_USERNAME=${DS_USERNAME}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - SSL_KEY_PASSWORD=${SSL_KEY_PASSWORD}
+      #
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      #
+      - KAKAO_CLIENT_ID=${KAKAO_CLIENT_ID}
+      - KAKAO_CLIENT_SECRET=${KAKAO_CLIENT_SECRET}
+      - KAKAO_REDIRECT_URI=${KAKAO_REDIRECT_URI}
+    networks:
+      - network
+
+  mysql-db:
+    image: mysql:8.0.29
+    container_name: rnts-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    networks:
+      - network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
