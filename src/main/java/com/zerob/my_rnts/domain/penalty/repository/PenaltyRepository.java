@@ -1,7 +1,7 @@
 package com.zerob.my_rnts.domain.penalty.repository;
 
-import org.springframework.stereotype.Repository;
+import com.zerob.my_rnts.domain.penalty.domain.Penalty;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class PenaltyRepository {
+public interface PenaltyRepository extends JpaRepository<Penalty, Long> {
 }

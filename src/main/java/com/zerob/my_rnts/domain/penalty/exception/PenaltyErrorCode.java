@@ -1,15 +1,13 @@
-package com.zerob.my_rnts.global.jwt.exception;
+package com.zerob.my_rnts.domain.penalty.exception;
 
+import com.zerob.my_rnts.domain.member.exception.MemberException;
 import com.zerob.my_rnts.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum TokenErrorCode implements ErrorCode {
+public enum PenaltyErrorCode implements ErrorCode {
 
-    // TOKEN
-    TOKEN_NOT_FOUND(401, "J001", "잘못된 토큰입니다."),
-    TOKEN_EXPIRED(401, "J002", "토큰이 만료되었습니다."),
-    TOKEN_INVALID(401, "J003", "토큰이 유효하지 않습니다.");
+    PENALTY_NOT_FOUND(404, "P001", "해당 패널티가 존재하지 않습니다.");
 
     private final int status;
     private final String code;
@@ -32,11 +30,11 @@ public enum TokenErrorCode implements ErrorCode {
 
     @Override
     public RuntimeException getException() {
-        return new TokenException(this);
+        return new PenaltyException(this);
     }
 
     @Override
     public RuntimeException getException(Throwable cause) {
-        return new TokenException(this, cause);
+        return new PenaltyException(this, cause);
     }
 }

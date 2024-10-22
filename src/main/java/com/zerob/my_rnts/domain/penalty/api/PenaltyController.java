@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +24,9 @@ public class PenaltyController {
     private final PenaltyService penaltyService;
 
     @Operation(summary = "패널티 생성", description = "1등 : 패널티 생성")
-    @PostMapping("/penalty")
-    public ResponseEntity<PenaltyResponse> create(@Valid PenaltyRequest penaltyRequest) {
-
+    @PostMapping("/penalty/{appointmentId}")
+    public ResponseEntity<PenaltyResponse> create(@Valid PenaltyRequest penaltyRequest, @PathVariable Long appointmentId) {
+        return null;
     }
 
     private CustomIntegratedUser getPrincipal() {

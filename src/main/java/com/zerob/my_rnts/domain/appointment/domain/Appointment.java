@@ -84,4 +84,8 @@ public class Appointment extends BaseEntity {
         this.appointmentTime = updateAppointment.getAppointmentTime();
         this.location = updateAppointment.getLocation();
     }
+
+    public void checkIn(final Long penaltyId) {
+        this.penaltyId = penaltyId;
+    }
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Penalty {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +21,15 @@ public class Penalty {
 
     private Content content;
 
+    private Long firstMemberId;
+
     @Builder
-    private Penalty(Long id, PenaltyType penaltyType, Content content) {
+    private Penalty(Long id, PenaltyType penaltyType, Content content, Long firstMemberId) {
         this.id = id;
         this.penaltyType = penaltyType;
         this.content = content;
+        this.firstMemberId = firstMemberId;
     }
+
     // 지각 여부가 필요할까?
 }
