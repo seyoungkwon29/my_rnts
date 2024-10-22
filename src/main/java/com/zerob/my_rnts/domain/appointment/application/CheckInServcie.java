@@ -59,6 +59,7 @@ public class CheckInServcie {
         return newPenalty;
     }
 
+    // 1등을 제외한 나머지 체크인
     private CheckInResponse handleRegularCheckIn(final Appointment appointment) {
         Penalty penalty = penaltyRepository.findById(appointment.getPenaltyId())
                 .orElseThrow(() -> new PenaltyException(PenaltyErrorCode.PENALTY_NOT_FOUND));
@@ -67,8 +68,8 @@ public class CheckInServcie {
                 .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
 
         if (appointment.getAppointmentTime().isAfter(LocalDateTime.now()))
-            return new CheckInResponse("도착했습니다. 1등은 " + firstMember.getNickname() + " 님 입니다.");
+            return new CheckInResponse("도착했습니다. 1등은 " + firstMember.getNickname().nickname() + " 님 입니다.");
         else
-            return new CheckInResponse("지각입니다. 1등은 " + firstMember.getNickname() + " 님 입니다.");
+            return new CheckInResponse("지각입니다. 1등은 " + firstMember.getNickname().nickname() + " 님 입니다.");
     }
 }
