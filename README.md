@@ -1,4 +1,4 @@
-# **출발했어?!** 백엔드
+# **출발했어?!**
 
 ## 프로젝트 소개
 ### 왜 이 프로젝트를 만들었는가?
@@ -32,12 +32,21 @@
   - 1등으로 도착한 사용자는 지각자에게 줄 패널티를 지정할 수 있습니다.
 
 ## 기술 스택
-- **Java**: 백엔드 로직 구현
-- **Spring Boot**: 프로젝트의 핵심 프레임워크
-- **JPA**: 데이터베이스 ORM 처리
-- **Redis**: 이메일 인증을 위한 캐시 서버
-- **Naver Cloud**: 클라우드 인프라 서비스
-- **Docker**: 컨테이너화된 배포 환경 구축
+<div align="center">
+  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
+  <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+  <img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
+  <img src="https://img.shields.io/badge/jpa-007393?style=for-the-badge&logo=jpa&logoColor=white">
+  <br>
+  <br>
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+  <img src="https://img.shields.io/badge/redis-FF4438?style=for-the-badge&logo=redis&logoColor=white">
+  <br>
+  <br>
+  <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+  <img src="https://img.shields.io/badge/ncloud-03C75A?style=for-the-badge&logo=naver&logoColor=white">
+  <img src="https://img.shields.io/badge/github actions-2088FF?style=for-the-badge&logo=github actions&logoColor=white">
+</div>
 - **GitHub Actions**: CI/CD 파이프라인
 
 ## 인프라 아키텍처
