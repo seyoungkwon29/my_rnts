@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: d
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create  # 매 테스트 시작 시 테이블 생성 및 종료 후 삭제
+    properties:
+      hibernate:
+        show_sql: true  # SQL 쿼리 출력
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  sql:
+    init:
+      mode: always  # 항상 SQL 스크립트 초기화
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  mail:
+    username: seyoungkwon29@naver.com  # 테스트용 메일 계정
+    password: ZQ3B6994RTHX  # 비밀번호 입력
+    host: smtp.naver.com
+    port: 465
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console  # H2 콘솔 경로 설정
+
+jwt:
+  header: Authorization
+  secretKey: 4f7787f5a1345790f26034f7e63d56f8b79fba28ed6b9f0dc669f706dddf39ac746dbebed662530e9bb51c3ba1b5381b0f0373b47241a7cb472fc19f9f3d0902
+
+  access:
+    expiration : 86400000 # 1일

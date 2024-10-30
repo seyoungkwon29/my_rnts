@@ -73,6 +73,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/favicon.ico").permitAll()
                         .requestMatchers("/login/**", "/api/public/**").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll() // h2-console 사용
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 )
