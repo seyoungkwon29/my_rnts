@@ -31,18 +31,13 @@ public class CheckInServcie {
     private final PenaltyRepository penaltyRepository;
 
     public CheckInResponse checkIn(final Long memberId, final Long appointmentId) {
-        Appointment appointment = appointmentRepository.findById(appointmentId)
+        Appointment appointment = appointmentRepository.findByIdWithLock(appointmentId)
                 .orElseThrow(() -> new AppointmentException(AppointmentErrorCode.APPOINTMENT_NOT_FOUND));
 
-        if (isFirstToArrive(appointment))
+        if (appointment.getPenaltyId() == null)
             return handleFirstCheckIn(appointment, memberId);
 
         return handleRegularCheckIn(appointment);
-    }
-
-    // 1등 조건 : penaltyId가 null인 경우
-    private boolean isFirstToArrive(final Appointment appointment) {
-        return appointment.getPenaltyId() == null;
     }
 
     // 1등 체크인 핸들러

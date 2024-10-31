@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(classes = MyRntsApplication.class)  // 애플리케이션 클래스 지정
+@SpringBootTest
 @ActiveProfiles("test")
 public class CheckInServiceTest {
 
@@ -47,6 +47,7 @@ public class CheckInServiceTest {
     public void checkInForMultiThreadTest() throws InterruptedException {
         // Given
         Appointment appointment = Appointment.builder()
+                .id(1L)
                 .title(Title.from("테스트 약속"))
                 .appointmentType(AppointmentType.DRINK)
                 .appointmentTime(LocalDateTime.now().plusHours(1))
@@ -91,8 +92,6 @@ public class CheckInServiceTest {
         Penalty penalty = penaltyRepository.findById(updatedAppointment.getPenaltyId())
                 .orElseThrow(() -> new PenaltyException(PenaltyErrorCode.PENALTY_NOT_FOUND));
 
-//        assertEquals(1L, penalty.getFirstMemberId());
-        assertTrue(result.contains(1L));
+        assertEquals(result.get(0), penalty.getFirstMemberId());
     }
-
 }
