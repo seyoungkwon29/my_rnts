@@ -1,6 +1,5 @@
 package com.zerob.my_rnts.domain.appointment.application;
 
-import com.zerob.my_rnts.MyRntsApplication;
 import com.zerob.my_rnts.domain.appointment.domain.Appointment;
 import com.zerob.my_rnts.domain.appointment.dto.CheckInResponse;
 import com.zerob.my_rnts.domain.appointment.exception.AppointmentErrorCode;
@@ -27,7 +26,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ActiveProfiles("test")
