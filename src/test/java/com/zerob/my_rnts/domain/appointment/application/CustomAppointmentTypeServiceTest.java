@@ -6,6 +6,7 @@ import com.zerob.my_rnts.domain.appointment.repository.CustomAppointmentTypeRepo
 import com.zerob.my_rnts.domain.member.domain.Member;
 import com.zerob.my_rnts.global.oauth2.userInfo.CustomIntegratedUser;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.util.StopWatch;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -30,8 +31,6 @@ class CustomAppointmentTypeServiceTest {
 
     @MockBean
     public CustomAppointmentTypeRepository customAppointmentTypeRepository;
-
-    public CustomIntegratedUser principal;
 
     @Mock
     public CacheManager cacheManager;
@@ -66,13 +65,36 @@ class CustomAppointmentTypeServiceTest {
 
         // When - 첫 번째 호출
         List<CustomAppointmentTypeResponse> responseList1 = customAppointmentTypeService.getCustomAppointmentTypeList(principal);
-        assertEquals(2, responseList1.size());
 
         // When - 두 번째 호출 (여기서는 캐시가 사용되어야 함)
         List<CustomAppointmentTypeResponse> responseList2 = customAppointmentTypeService.getCustomAppointmentTypeList(principal);
-        assertEquals(2, responseList2.size());
 
-        // 메서드가 한번만 호출되었는지 확인
+        // Then - 메서드가 한번만 호출되었는지 확인
+        assertEquals(2, responseList1.size());
+        assertEquals(2, responseList2.size());
         verify(customAppointmentTypeRepository, times(1)).findAllByMemberId(1L);
+    }
+
+    @Test
+    @DisplayName("캐시 활용했을 때와 안했을 때 성능 비교 테스트")
+    void testPerformanceWithAndWithoutCache() {
+        CustomIntegratedUser principal = new CustomIntegratedUser(mockMember());
+
+        // 캐시 없는 상태에서의 성능 측정
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start("Without Cache");
+        for (int i = 0; i < 10; i++) {
+            customAppointmentTypeService.getCustomAppointmentTypeList(principal);
+        }
+        stopWatch.stop();
+
+        // 캐시 있는 상태에서의 성능 측정
+        stopWatch.start("With Cache");
+        for (int i = 0; i < 10; i++) {
+            customAppointmentTypeService.getCustomAppointmentTypeList(principal);
+        }
+        stopWatch.stop();
+
+        System.out.println(stopWatch.prettyPrint());
     }
 }

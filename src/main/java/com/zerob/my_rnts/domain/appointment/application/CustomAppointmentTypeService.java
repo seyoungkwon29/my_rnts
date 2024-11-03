@@ -15,7 +15,6 @@ import com.zerob.my_rnts.domain.member.vo.LoginId;
 import com.zerob.my_rnts.global.oauth2.userInfo.CustomIntegratedUser;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +31,6 @@ public class CustomAppointmentTypeService {
     private final MemberRepository memberRepository;
     private final AppointmentRepository appointmentRepository;
 
-    @CachePut(value = "customAppointmentType", key = "#customAppointmentType")
     public CustomAppointmentTypeResponse create(final CustomAppointmentType customAppointmentType, final CustomIntegratedUser principal) {
         // 사용자 : 사용자 정의 약속 유형 매핑
         customAppointmentType.addMember(getMember(principal));
@@ -50,7 +48,6 @@ public class CustomAppointmentTypeService {
                 .collect(Collectors.toList());
     }
 
-    @Cacheable(value = "customAppointmentType", key = "#customAppointmentTypeId")
     public CustomAppointmentTypeResponse update(final CustomAppointmentType newCustomAppointmentType, final Long customAppointmentTypeId) {
         CustomAppointmentType customAppointmentType = getCustomAppointmentType(customAppointmentTypeId);
         customAppointmentType.update(newCustomAppointmentType);
@@ -58,7 +55,6 @@ public class CustomAppointmentTypeService {
         return CustomAppointmentTypeResponse.of(customAppointmentType);
     }
 
-    @Cacheable(value = "customAppointmentType", key = "#customAppointmentTypeId")
     public void delete(final Long customAppointmentTypeId) {
         // 사용자 정의 약속 유형 삭제
         if (getCustomAppointmentType(customAppointmentTypeId) != null) {
@@ -76,7 +72,6 @@ public class CustomAppointmentTypeService {
                 .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
     }
 
-    @Cacheable(value = "customAppointmentType", key = "#customAppointmentTypeId")
     public CustomAppointmentType getCustomAppointmentType(final Long customAppointmentTypeId) {
         return customAppointmentTypeRepository.findById(customAppointmentTypeId)
                 .orElseThrow(() -> new AppointmentException(AppointmentErrorCode.CUSTOM_TYPE_NOT_FOUND));
