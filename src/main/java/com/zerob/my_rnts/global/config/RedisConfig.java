@@ -44,6 +44,10 @@ public class RedisConfig {
 
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory factory) {
+        // RedisCacheConfiguration : 캐시 키와 값을 직렬화하고 캐시 만료 시간을 설정할 수 있는 Redis 캐시 구성을 정의
+        // serializeKeysWith : 키를 문자열 형식으로 직렬화
+        // serializeValuesWith : 값을 JSON 형식으로 직렬화
+        // entryTtl : TTL 설정
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
